@@ -70,7 +70,7 @@ public class LauncherActivity extends Activity {
         // Flat, with no container behind the icons: this screen is a plain
         // dark field and a chip floating on it reads as a box that wandered in
         // from somewhere else.
-        KioskStatus.coloursForFlat(BACKGROUND);
+        KioskStatus.colours(Color.WHITE, Color.TRANSPARENT);
 
         KioskStatus.wifiAction(() ->
                 startActivity(new Intent(this, WifiActivity.class)));
