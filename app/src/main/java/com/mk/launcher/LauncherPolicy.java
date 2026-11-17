@@ -250,10 +250,12 @@ final class LauncherPolicy {
             if (repo.hideOthers()) hideEverythingElse(ctx);
         }
 
-        try {
-            activity.startLockTask();
-        } catch (Exception ignored) {
-            // not device owner: the launcher still works, it just cannot lock
+         if (isDeviceOwner(ctx)) {
+            try {
+                activity.startLockTask();
+            } catch (Exception e) {
+                android.util.Log.w(TAG, "Lock task failed", e);
+            }
         }
     }
 
