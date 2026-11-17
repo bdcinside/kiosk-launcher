@@ -33,6 +33,14 @@ jobs:
         run: |
           cd app/build/outputs/apk/release
           sha256sum app-release.apk > SHA256SUMS.txt
+      - name: Build required Android Kiosk library
+        shell: bash
+        run: |
+          git clone --depth 1 https://github.com/kh-menachem/android-kiosk.git /tmp/android-kiosk
+          gradle -p /tmp/android-kiosk :kiosk:assembleRelease --no-daemon
+          mkdir -p app/libs
+          cp /tmp/android-kiosk/kiosk/build/outputs/aar/kiosk-release.aar app/libs/kiosk.aar
+          test -s app/libs/kiosk.aar
       - name: Save APK as downloadable build artifact
         uses: actions/upload-artifact@v4
         with:
